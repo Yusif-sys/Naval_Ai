@@ -5,11 +5,35 @@ import { resolve } from "path";
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 dotenv.config(); // fallback to .env
 
+const isProd = process.env.NODE_ENV === "production" || !!process.env.VERCEL;
+
 const connectionString =
   process.env.DATABASE_URL ??
   `postgresql://${process.env.POSTGRES_USER ?? "naval"}:${process.env
     .POSTGRES_PASSWORD ?? "naval"}@${process.env.POSTGRES_HOST ?? "localhost"}:${process
     .env.POSTGRES_PORT ?? "5432"}/${process.env.POSTGRES_DB ?? "naval"}`;
+
+// In production (e.g. Vercel), "localhost" points to the serverless container, not your DB.
+if (isProd) {
+  const host = process.env.POSTGRES_HOST ?? "";
+  const url = process.env.DATABASE_URL ?? "";
+  const pointsToLocal =
+    host === "localhost" ||
+    host === "127.0.0.1" ||
+    url.includes("localhost") ||
+    url.includes("127.0.0.1");
+
+  if (!process.env.DATABASE_URL && !host) {
+    throw new Error(
+      "DATABASE_URL is not set. On Vercel you must configure a hosted Postgres connection string."
+    );
+  }
+  if (pointsToLocal) {
+    throw new Error(
+      "DATABASE_URL/POSTGRES_HOST points to localhost. On Vercel this must point to your hosted Postgres (Neon/Supabase/Railway/etc.)."
+    );
+  }
+}
 
 export const pool = new Pool({
   connectionString

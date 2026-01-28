@@ -38,7 +38,24 @@ export async function POST(req: NextRequest) {
 
     const [questionEmbedding] = await embedText([message]);
 
-    const client = await pool.connect();
+    let client;
+    try {
+      client = await pool.connect();
+    } catch (dbErr: any) {
+      const msg = String(dbErr?.message ?? "");
+      const isLocalRefused =
+        msg.includes("ECONNREFUSED") &&
+        (msg.includes("127.0.0.1:5432") || msg.includes("localhost:5432"));
+
+      return NextResponse.json(
+        {
+          error: isLocalRefused
+            ? "Database connection refused. On Vercel, localhost:5432 is not your Postgres. Set DATABASE_URL to a hosted Postgres (Neon/Supabase/Railway/Vercel Postgres) and run `npm run migrate` + `npm run ingest` against it."
+            : "Database connection failed. Verify DATABASE_URL on the server points to a reachable Postgres with pgvector enabled."
+        },
+        { status: 500 }
+      );
+    }
     try {
       // Format embedding for pgvector query: '[0.1,0.2,...]'
       const embeddingStr = `[${questionEmbedding.join(",")}]`;
@@ -200,7 +217,7 @@ export async function POST(req: NextRequest) {
     } finally {
       // Return connection to the pool
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      await client.release();
+      await client?.release();
     }
   } catch (err: any) {
     // eslint-disable-next-line no-console
