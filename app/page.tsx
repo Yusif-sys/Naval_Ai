@@ -99,10 +99,10 @@ export default function HomePage() {
         <header className="h-16 flex items-center justify-between px-12 border-b border-[var(--border-navy)] bg-[var(--bg-midnight)]/80 backdrop-blur-md z-30">
           <div className="flex items-center gap-4">
             <span className="material-symbols-outlined text-[var(--accent-luminous)] text-xl">architecture</span>
-            <span className="text-[10px] font-bold text-midnight-600 uppercase tracking-[0.2em]">Naval Intelligence</span>
+            <span className="text-[10px] font-bold text-silver-200 uppercase tracking-[0.2em]">Naval Intelligence</span>
           </div>
           <div className="flex items-center gap-6">
-            <span className="text-xs font-medium text-midnight-600 italic">The Path to Wealth &amp; Happiness</span>
+            <span className="text-xs font-medium text-silver-400 italic">The Path to Wealth &amp; Happiness</span>
           </div>
         </header>
 
@@ -126,7 +126,7 @@ export default function HomePage() {
               >
                 {m.role === "user" && (
                   <>
-                    <div className="text-sm font-bold text-midnight-600 uppercase tracking-widest mb-4">Inquiry</div>
+                    <div className="text-sm font-bold text-silver-200 uppercase tracking-widest mb-4">Inquiry</div>
                     <p className="text-xl text-[var(--text-silver)] font-medium leading-relaxed pl-8">
                       {m.content}
                     </p>
@@ -137,7 +137,7 @@ export default function HomePage() {
                   <>
                     <div className="flex items-center gap-2 mt-4 mb-3">
                       <span className="material-symbols-outlined text-sm text-[var(--accent-luminous)]">auto_awesome</span>
-                      <span className="text-[10px] font-bold tracking-widest text-midnight-600 uppercase">Naval</span>
+                      <span className="text-[10px] font-bold tracking-widest text-silver-200 uppercase">Naval</span>
                     </div>
                     <div className="bg-[var(--chat-ai-bg)]/40 rounded-2xl px-6 py-5">
                       <div className="serif-content text-lg text-[var(--text-silver)] space-y-4 whitespace-pre-wrap break-words overflow-visible">
@@ -162,7 +162,7 @@ export default function HomePage() {
               <div ref={loadingStartRef} className="flex flex-col">
                 <div className="flex items-center gap-2 mt-4 mb-3">
                   <span className="material-symbols-outlined text-sm text-[var(--accent-luminous)]">auto_awesome</span>
-                  <span className="text-[10px] font-bold tracking-widest text-midnight-600 uppercase">Naval</span>
+                  <span className="text-[10px] font-bold tracking-widest text-silver-200 uppercase">Naval</span>
                 </div>
                 <div className="bg-[var(--chat-ai-bg)]/40 rounded-2xl px-6 py-5">
                   <div className="flex items-center gap-2 py-2">
@@ -188,7 +188,7 @@ export default function HomePage() {
             <form onSubmit={onSubmit} className="relative bg-[var(--bg-input)] rounded-full shadow-2xl transition-all px-6 py-2 input-glow flex items-center gap-4 outline-none">
               <textarea
                 ref={textareaRef}
-                className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-[var(--text-silver)] placeholder-midnight-600 py-3 resize-none overflow-hidden text-base"
+                className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-[var(--text-silver)] placeholder:text-silver-400 py-3 resize-none overflow-hidden text-base"
                 placeholder="Inquire with Naval AI..."
                 rows={1}
                 value={input}
@@ -215,13 +215,13 @@ export default function HomePage() {
       {/* Right Sidebar - Sources */}
       <aside className="w-80 bg-[var(--bg-panel)] border-l border-[var(--border-navy)] flex flex-col h-full z-40">
         <div className="p-8 border-b border-[var(--border-navy)]">
-          <h2 className="text-[10px] font-bold text-midnight-600 uppercase tracking-[0.2em] flex items-center gap-2">
+          <h2 className="text-[10px] font-bold text-silver-200 uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="material-symbols-outlined text-base">auto_stories</span> Sources &amp; References
           </h2>
         </div>
         <div className="flex-1 overflow-y-auto custom-scrollbar p-8 space-y-10">
           {allSources.length === 0 ? (
-            <div className="text-sm text-midnight-600">
+            <div className="text-sm text-silver-400">
               As you chat, sources from nav.al will appear here.
             </div>
           ) : (
@@ -238,7 +238,7 @@ export default function HomePage() {
                     >
                       {s.title}
                     </a>
-                    <p className="text-[11px] text-midnight-600 mt-1">nav.al/archive</p>
+                    <p className="text-[11px] text-silver-400 mt-1">nav.al/archive</p>
                   </div>
                 ))}
               </div>
@@ -246,7 +246,7 @@ export default function HomePage() {
           )}
         </div>
         <div className="p-8 border-t border-[var(--border-navy)]">
-          <div className="flex items-center gap-2 text-midnight-600">
+          <div className="flex items-center gap-2 text-silver-400">
             <span className="material-symbols-outlined text-sm">verified</span>
             <span className="text-[10px] font-bold uppercase tracking-widest">Verified Corpus</span>
           </div>
